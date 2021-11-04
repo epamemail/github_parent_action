@@ -9,3 +9,10 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo Hello, world!
+
+      - uses: convictional/trigger-workflow-and-wait@v1.3.0
+        with:
+          owner: epamemail
+          repo: github_child_action
+          github_token: ${{ secrets.CHILD_ACTION_SECRET }}
+          workflow_file_name: child_action.yml
