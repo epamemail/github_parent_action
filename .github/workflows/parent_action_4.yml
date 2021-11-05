@@ -8,10 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run the Parent script
+      - name: Run the script Parent GitHub Action
         run: echo Hello, world!
 
-      - name: Run the Child script
+      - name: Run the script in Child GitHub Action
         run: |
           curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
           -H "Accept: application/vnd.github.v3+json" \
@@ -19,11 +19,9 @@ jobs:
           https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/dispatches \
           --data '{"ref": "main", "inputs": { "parametr": "Custom value" }}'
 
-      - name: Sleep
-        run: sleep 5
-
-      - name: Check status
+      - name: Check status of Child GitHub Action
         run: |
+          sleep 5
           status=""
           while [ "$status" != "\"completed\"" ]
           do
@@ -32,14 +30,6 @@ jobs:
                 -H "Accept: application/vnd.github.v3+json" \
                 -H "Content-Type:application/json" \
                 https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].status')
-            echo $status
+            echo "Child GitHub Action still in progress..."
+            sleep 20
           done
-          
-          
-          
-          
-          
-          
-          
-          
-          
