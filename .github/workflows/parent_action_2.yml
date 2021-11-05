@@ -2,6 +2,7 @@ name: Parent Action 2
 
 on:
   repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
