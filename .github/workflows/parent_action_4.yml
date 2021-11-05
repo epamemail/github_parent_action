@@ -22,11 +22,13 @@ jobs:
           
           
       - name: Get the Child run number
+        id: result
         run: |
-          echo "RUN_NUMBER=$(curl -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+          echo "::set-output name=run_number::$(curl -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
                             -H "Accept: application/vnd.github.v3+json" \
                             -H "Content-Type:application/json" \
-                            https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs)" >> $GITHUB_ENV
+                            https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs)"
                             
       - name: Echo the Child run number
-        run: echo $RUN_NUMBER
+        run: echo steps.result.outputs.run_number
+
