@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run the script Parent GitHub Action
-        run: echo Hello, world!
+        run: echo Hello, Parent Action!
 
       - name: Run the script in Child GitHub Action
         run: |
