@@ -1,0 +1,20 @@
+name: Parent Action 3
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the Parent script
+        run: echo Hello, world!
+
+      - name: Run the Child script
+        run: |
+          curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Content-Type:application/json" \
+          https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_2.yml/dispatches \
+          --data '{"ref": "main"}'
