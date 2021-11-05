@@ -15,5 +15,6 @@ jobs:
         run: |
           curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
           -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Content-Type:application/json" \
           https://api.github.com/repos/epamemail/github_child_action/dispatches \
           --data '{"event_type": "ping"}'
