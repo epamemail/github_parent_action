@@ -10,35 +10,37 @@ jobs:
     steps:
       - name: Run the script Parent GitHub Action
         run: echo Hello, Parent Action!
+      - name: 1
+        run: echo "::set-output name=action_fruit::strawberry"
+        
+#       - name: Run the script in Child GitHub Action
+#         run: |
+#           curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+#           -H "Accept: application/vnd.github.v3+json" \
+#           -H "Content-Type:application/json" \
+#           https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/dispatches \
+#           --data '{"ref": "main", "inputs": { "parametr": "Custom value" }}'
 
-      - name: Run the script in Child GitHub Action
-        run: |
-          curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Content-Type:application/json" \
-          https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/dispatches \
-          --data '{"ref": "main", "inputs": { "parametr": "Custom value" }}'
+#       - name: Check proggres of Child GitHub Action
+#         run: |
+#           sleep 5
+#           progress=""
+#           while [ "$progress" != "\"completed\"" ]
+#           do
+#             progress=$(curl --silent \
+#                 -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+#                 -H "Accept: application/vnd.github.v3+json" \
+#                 -H "Content-Type:application/json" \
+#                 https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].status')
+#             echo "Child GitHub Action still in progress..."
+#             sleep 20
+#           done
 
-      - name: Check proggres of Child GitHub Action
-        run: |
-          sleep 5
-          progress=""
-          while [ "$progress" != "\"completed\"" ]
-          do
-            progress=$(curl --silent \
-                -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
-                -H "Accept: application/vnd.github.v3+json" \
-                -H "Content-Type:application/json" \
-                https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].status')
-            echo "Child GitHub Action still in progress..."
-            sleep 20
-          done
-
-      - name: Check status of Child GitHub Action
-        run: |
-          status=$(curl --silent \
-              -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
-              -H "Accept: application/vnd.github.v3+json" \
-              -H "Content-Type:application/json" \
-              https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].conclusion')
-          echo "The status of Child GitHub Action is ${status}"
+#       - name: Check status of Child GitHub Action
+#         run: |
+#           status=$(curl --silent \
+#               -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+#               -H "Accept: application/vnd.github.v3+json" \
+#               -H "Content-Type:application/json" \
+#               https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].conclusion')
+#           echo "The status of Child GitHub Action is ${status}"
