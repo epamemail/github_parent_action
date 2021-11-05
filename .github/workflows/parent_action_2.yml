@@ -13,7 +13,11 @@ jobs:
 
       - name: Run the Child script
         run: |
-          curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type:application/json" https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_2.yml/dispatches --data '{"ref": "main"}'
+          curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Content-Type:application/json" \
+          https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_2.yml/dispatches \
+          --data '{"ref": "main"}'
           
           
           
