@@ -10,9 +10,17 @@ jobs:
     steps:
       - name: Run the script Parent GitHub Action
         run: echo Hello, Parent Action!
-      - name: 1
-        run: echo "::set-output name=action_fruit::strawberry"
-        
+
+
+      - name: Set selected color
+        run: echo '::set-output name=SELECTED_COLOR::green'
+        id: random-color-generator
+      - name: Get color
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+
+
+
+
 #       - name: Run the script in Child GitHub Action
 #         run: |
 #           curl -XPOST -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
