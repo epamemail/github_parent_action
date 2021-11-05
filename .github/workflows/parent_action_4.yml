@@ -24,10 +24,11 @@ jobs:
       - name: Get the Child run number
         id: result
         run: |
-          echo "::set-output name=run_number::$(curl -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
-                            -H "Accept: application/vnd.github.v3+json" \
-                            -H "Content-Type:application/json" \
-                            https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq)"
+          echo "::set-output name=run_number::$(curl --silent \
+                -u "${{ secrets.CHILD_ACTION_SECRET_1 }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                -H "Content-Type:application/json" \
+                https://api.github.com/repos/epamemail/github_child_action/actions/workflows/child_action_4.yml/runs | jq '.workflow_runs[0].run_number')"
                             
       - name: Echo the Child run number
         run: echo "${{ steps.result.outputs.run_number }}"
